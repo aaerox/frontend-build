@@ -1,0 +1,53 @@
+
+// iOS normalize
+button {
+	padding: 0;
+}
+
+// Helper mixins
+@mixin button(
+	$color: $cr-white
+) {
+	display: inline-block;
+	
+	padding: 15px 40px;
+
+	color: $color;
+	border: 2px solid $color;
+
+	font-weight: bold;
+	
+	text-transform: uppercase;
+	text-decoration: none;
+
+	&:hover {
+		text-decoration: none;
+	}
+}
+
+@mixin square-button(
+	$color: $cr-white
+) {
+	width: 54px;
+	height: 54px;
+
+	background: none;
+	border: 0;
+	outline: 0;
+
+	border: 2px solid $cr-white;
+}
+
+// Standard classes
+.button {
+	@include button();
+
+	&--invert {
+		@include button($cr-lightgray);
+	}
+
+	&--center {
+		display: block;
+		margin: 0 auto;
+	}
+}

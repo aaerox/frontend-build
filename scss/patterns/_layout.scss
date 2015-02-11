@@ -1,0 +1,140 @@
+$default-padding-large: $element-spacing * 2;
+$default-padding-small: $element-spacing * (4 / 3);
+
+$default-margin-large: $element-spacing * 2;
+$default-margin-small: $element-spacing * (4 / 3);
+
+
+//
+// Padding/spacing
+// ------------------------------------------------------------
+
+// Allows you to add padding for only specific display sizes
+@mixin expandable-padding($padding: $collapse-padding, $large: false, $content: true, $medium: true, $small: true, $directions: left right) {
+	// TODO: Reimplement to be generic and optimise media queries when more than just medium and small are enabled
+
+	$padding-horizontal-ratio: 4;
+
+	// Implement our padding
+	@if $large == true {
+		@include media(max-width ($size-large + ($padding * $padding-horizontal-ratio)) min-width ($size-content + 1px)) {
+			@each $direction in $directions {
+				padding-#{$direction}: $padding;
+			}
+		}
+	}
+
+	@if $content == true {
+		@include media(max-width ($size-content + ($padding * $padding-horizontal-ratio)) min-width ($size-medium + 1px)) {
+			@each $direction in $directions {
+				padding-#{$direction}: $padding;
+			}
+		}
+	}
+
+	@if $medium == true {
+		@if $small == false {
+			@include media(max-width ($size-medium + ($padding * $padding-horizontal-ratio)) min-width ($size-small + 1px)) {
+				@each $direction in $directions {
+					padding-#{$direction}: $padding;
+				}
+			}
+		} @else {
+			@include media($medium-and-below) {
+				@each $direction in $directions {
+					padding-#{$direction}: $padding;
+				}
+			}
+		}
+	} @else if $small == true {
+		@include media($small-only) {
+			@each $direction in $directions {
+				padding-#{$direction}: $padding;
+			}
+		}
+	}
+}
+
+// Adds generic padding which resizes on breakpoint
+@mixin padding($padding-large: $default-padding-large, $padding-small: $default-padding-small, $breakpoint: $medium-and-below, $directions: top bottom) {
+	@each $direction in $directions {
+		padding-#{$direction}: $padding-large;
+	}
+
+	@include media($breakpoint) {
+		@each $direction in $directions {
+			padding-#{$direction}: $padding-small;
+		}
+	}
+}
+
+@mixin half-padding($directions: bottom) {
+	@include padding($padding-large: $default-padding-large / 2, $padding-small: $default-padding-small / 2, $directions: $directions);
+}
+
+%standard-padding {
+	@include expandable-padding();
+	@include padding();
+}
+
+%half-padding {
+	@include half-padding();
+}
+
+// Adds generic margin which resizes on breakpoint
+@mixin margin($margin-large: $default-margin-large, $margin-small: $default-margin-small, $breakpoint: $medium-and-below, $directions: bottom) {
+	@each $direction in $directions {
+		margin-#{$direction}: $margin-large;
+	}
+
+	@include media($breakpoint) {
+		@each $direction in $directions {
+			margin-#{$direction}: $margin-small;
+		}
+	}
+}
+
+@mixin half-margin($directions: bottom) {
+	@include margin($margin-large: $default-margin-large / 2, $margin-small: $default-margin-small / 2, $directions: $directions);
+}
+
+%standard-margin {
+	@include margin();
+}
+
+%half-margin {
+	@include half-margin();
+}
+
+
+//
+// Containers
+// ------------------------------------------------------------
+
+@mixin container($type: "medium", $size: "", $padding: $collapse-padding * 2) {
+	@if $size != "" {
+		@include outer-container($size + $padding);
+	} @elseif $type == "large" {
+		@include outer-container($max-width-large + $padding);
+	} @elseif $type == "medium" {
+		@include outer-container($max-width + $padding);
+	} @elseif $type == "small" {
+		@include outer-container($max-width-small + $padding);
+	}
+}
+
+%standard-container {
+	@include container();
+	
+	padding-left: $collapse-padding;
+	padding-right: $collapse-padding;
+}
+
+%column-container {
+	column-count: 2;
+	column-gap: 30px;
+
+	@include media($content-collapse-break) {
+		column-count: auto;
+	}
+}

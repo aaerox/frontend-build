@@ -1,0 +1,91 @@
+@mixin carousel-dots($color: $cr-white, $breakpoint: $medium-and-below) {
+
+	.owl-dots {
+		display: none;
+		position: absolute;
+
+		top: 0;
+		left: 0;
+		right: 0;
+
+		text-align: center;
+		line-height: 0;
+
+		@include media($breakpoint) {
+			padding: ($element-spacing / 2) 0;
+		}
+	}
+
+	.owl-dot {
+		display: inline-block;
+
+		margin: 0 5px;
+
+		width: 15px;
+		height: 15px;
+
+		border: 2px solid $color;
+		border-radius: 50%;
+
+		transition: background $trans-fast;
+		background: transparent;
+
+		&.active {
+			background: $color;
+		}
+	}
+}
+
+
+@mixin carousel-arrows($height: 60px, $color: $cr-white) {
+	.owl-prev,
+	.owl-next {
+		position: absolute;
+
+		top: 50%;
+		left: 50%;
+
+		transition: opacity $trans-slow;
+		opacity: 1;
+
+		&.disabled {
+			cursor: default;
+			opacity: 0.2;
+		}
+
+		&:after {
+			content: '';
+			float: right;
+
+			font-size: 2em;
+
+			color: $color;
+
+			border-style: solid;
+			border-width: 2px 2px 0 0;
+
+			width: $height;
+			height: $height;
+
+			transform: rotate(45deg);
+		}
+
+		.ie9 & {
+			display: none;
+		}
+	}
+
+	.owl-prev {
+		margin-left: -50%;
+		transform: translateX(50%) translateY(-50%);
+
+		&:after {
+			transform: rotate(-135deg);
+		}
+	}
+
+	.owl-next {
+		margin-left: 50%;
+		transform: translateX(-150%) translateY(-50%);
+	}
+}

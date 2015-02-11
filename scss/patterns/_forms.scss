@@ -1,0 +1,203 @@
+//
+// Common settings
+// ------------------------------------------------------------
+$form-padding-hori: 1.1em;
+$form-padding-vert: 0.7em; 
+
+$form-placeholder-margin: 0.4em;
+
+$form-line-height: 1.1em;
+
+$form-transition-speed: $trans-faster;
+
+$form-margin-large: 50px;
+$form-margin-small: 40px;
+
+
+//
+// Layout
+// ------------------------------------------------------------
+.form {
+	@extend %standard-margin;
+
+	overflow: auto;
+
+	// Default layout
+	@include container($type: "small");
+	padding: 0 $collapse-padding;
+
+	&__element {
+		@include span-columns(6 of 12);
+		@include omega(2n);
+
+		@include media($small-only) {
+			width: 100%;
+			margin-right: 0;
+		}
+	}
+}
+
+
+//
+// Elements
+// ------------------------------------------------------------
+%form-label {
+	position: relative;
+	display: inline-block;
+	
+	cursor: text;
+
+	width: 100%;
+}
+
+%form-input {
+	width: 100%;
+	height: 100%;
+
+	outline: 0;
+	border: 1px solid $cr-border;
+
+	background: transparent;
+
+	line-height: $form-line-height;
+
+	padding: $form-padding-vert $form-padding-hori;
+
+	transition: all $form-transition-speed, border-color ($form-transition-speed * 2);
+
+	&:focus {
+		border-color: $cr-lightgray;
+	}
+
+	.form__element--valid & {
+		border-color: $cr-green;
+	}
+
+	.form__element--invalid & {
+		border-color: $cr-orange;
+	}
+}
+
+%form-placeholder {
+	position: absolute;
+	z-index: -1;
+
+	top: 0;
+	left: 0;
+
+	width: 100%;
+
+	line-height: $form-line-height;
+
+	border: 1px solid transparent;
+
+	padding: $form-padding-vert $form-padding-hori;
+
+	transition: all $form-transition-speed;
+}
+
+.form {
+
+	&__honeypot {
+		display: none;
+	}
+
+	&__element {
+		position: relative;
+
+		line-height: 0;
+
+		// Form elements have top margins rather than the conventional bottom to account for the way we arrange labels with transitions
+		@include margin($directions: top);
+
+		transition: margin-bottom $form-transition-speed;
+
+		&--invalid {
+			margin-bottom: $element-spacing;
+		}
+	}
+
+	&__submit {
+		float: left;
+		clear: both;
+
+		width: 100%;
+
+		@include margin($directions: top);
+
+		text-align: center;
+
+		&-button {
+			background: transparent;
+			outline: none;
+
+			@include button($cr-lightgray);
+		}
+	}
+}
+
+
+//
+// Errors
+// ------------------------------------------------------------
+.form-error {
+	position: absolute;
+	top: 100%;
+	left: 0;
+
+	display: inline-block !important;		// Override ASP.NET display rules
+	vertical-align: middle;
+
+	overflow: hidden;
+
+	margin-top: 10px;
+
+	color: $cr-orange;
+	font-size: 0.9em;
+
+	transition: opacity ($form-transition-speed * 2);
+	opacity: 0;
+
+	&--invalid {
+		opacity: 1;
+	}
+
+	&--invalid ~ &--invalid {
+		opacity: 0;
+	}
+
+	&:before {
+		display: inline-block;
+		vertical-align: middle;
+
+		content: '';
+
+		width: 30px;
+		height: 30px;
+
+		margin-right: 10px;
+
+		@extend %icon-form-invalid;
+	}
+}
+
+
+//
+// Triggerable form elements
+// ------------------------------------------------------------
+.form-trigger {
+	display: none;
+
+	&--visible {
+		display: block;
+	}
+}
+
+
+//
+// Form element types
+// ------------------------------------------------------------
+@import "forms/text";
+@import "forms/textarea";
+@import "forms/dropdown";
+@import "forms/checkbox";

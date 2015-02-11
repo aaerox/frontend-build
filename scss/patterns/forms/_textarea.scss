@@ -1,0 +1,27 @@
+.form-textarea {
+
+	&.form__element {
+		width: 100%;
+		margin-right: 0;
+	}
+
+	&__label {
+		@extend %form-label;
+	}
+
+	&__text {
+		@extend %form-input;
+
+		min-height: 160px;
+	}
+
+	&__placeholder {
+		@extend %form-placeholder;
+	}
+
+	&--filled &__placeholder,
+	&__text:focus + &__placeholder {
+		transform: translateY(-($form-padding-vert + $form-line-height + $form-placeholder-margin));
+		color: $cr-gray;
+	}
+}

@@ -1,0 +1,20 @@
+.form-text {
+
+	&__label {
+		@extend %form-label;
+	}
+
+	&__input {
+		@extend %form-input;
+	}
+
+	&__placeholder {
+		@extend %form-placeholder;
+	}
+
+	&--filled &__placeholder,
+	&__input:focus + &__placeholder {
+		transform: translateY(-($form-padding-vert + $form-line-height + $form-placeholder-margin));
+		color: $cr-gray;
+	}
+}

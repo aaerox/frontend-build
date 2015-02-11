@@ -1,0 +1,74 @@
+$form-dropdown-arrow-size: 1em;
+
+
+.form-dropdown {
+	position: relative;
+
+	&__label {
+		@extend %form-label;
+
+		position: relative;
+	}
+
+	&__select {
+		@extend %form-input;
+
+		cursor: pointer;
+
+		@include appearance(none);
+
+		padding-right: 0;
+
+		// Targetting IE expand dropdown
+		::-ms-expand {
+			display: none;
+		}
+
+		// Targetting Webkit browsers only. FF will show the dropdown arrow with so much padding
+		@media screen and (-webkit-min-device-pixel-ratio: 0) {
+			padding-right: 18px;
+		}
+	}
+
+	// Mask the dropdown arrow section just incase
+	&:before {
+		display: block;
+		content: '';
+
+		position: absolute;
+		z-index: 10;
+		
+		top: 1px;
+		right: 1px;
+		bottom: 1px;
+		width: 20px;
+		background: $cr-white;
+	}
+
+	// Show a dropdown arrow
+	&:after {
+		display: block;
+		content: '';
+
+		position: absolute;
+		z-index: 11;
+
+		top: 50%;
+		right: $form-padding-hori;
+
+		border-left: ($form-dropdown-arrow-size / 3) solid transparent;
+		border-right: ($form-dropdown-arrow-size / 3) solid transparent;
+		border-top: ($form-dropdown-arrow-size / 3) solid $cr-midgray;
+
+		margin-top: - ($form-dropdown-arrow-size / 2) + ($form-dropdown-arrow-size / 3);
+	}
+
+	&__placeholder {
+		@extend %form-placeholder;
+	}
+
+	&--selected &__placeholder {
+		transform: translateY(-($form-padding-vert + $form-line-height + $form-placeholder-margin));
+		color: $cr-gray;
+	}
+}

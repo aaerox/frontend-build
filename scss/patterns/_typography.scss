@@ -1,0 +1,62 @@
+// ------------------------------------------------------------
+// Typography
+// ------------------------------------------------------------
+
+$typl8-paragraph-spacing: true;
+$typl8-line-height: 1.6;
+
+$typl8-serif-boolean: false;
+$typl8-custom-font: 'proxima-nova';
+
+$typl8-heading-color: $cr-lightgray;
+$typl8-copy-color: $cr-lightgray;
+
+@import "../../components/typeplate-starter-kit/scss/typeplate";
+
+
+//
+// Custom styling
+// ------------------------------------------------------------
+// scss-lint:disable SingleLinePerSelector NameFormat
+h1, h2, h3, h4, h5,h6 {
+	font-weight: 300;
+	margin-bottom: 1rem;
+
+	hyphens: none;
+}
+
+@mixin scale-headings($scale: 1) {
+	@each $name, $size in $typl8-scale {
+		.#{$name} {
+			@include typl8-typescale(
+				$size * $scale,
+				$typl8-font-base,
+				'#{$typl8-typescale-unit}',
+				$typl8-measure * $scale * $scale
+			);
+		}
+	}
+}
+
+body {
+	@include media($content-collapse-break) {
+		$scale: 0.9;
+
+		font-size: $scale * 1em;
+		@include scale-headings($scale);
+	}
+
+	@include media($medium-and-below) {
+		$scale: 0.8;
+
+		font-size: $scale * 1em;
+		@include scale-headings($scale);
+	}
+
+	@include media($small-only) {
+		$scale: 0.75;
+
+		font-size: $scale * 1em;
+		@include scale-headings($scale);
+	}
+}

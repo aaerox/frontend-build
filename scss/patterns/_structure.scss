@@ -1,0 +1,200 @@
+
+//
+// Standard page structure
+// ------------------------------------------------------------
+html,
+body,
+.webform {
+	height: 100%;
+}
+
+.webform {
+	overflow: hidden;
+
+	perspective: 1500px;
+}
+
+.layout {
+	position: relative;
+
+	left: 0;
+
+	height: 100%;
+
+	transform-origin: 0% 50%;
+	transform-style: preserve-3d;
+	transition: transform $trans-slower;
+
+	&__content {
+		position: relative;
+
+		height: 100%;
+
+		overflow-y: scroll;
+		-webkit-overflow-scrolling: touch;
+
+		&:after {
+			display: block;
+			content: '';
+
+			background: #000;
+
+			position: absolute;
+
+			z-index: $zi-content-mask;
+
+			top: 0;
+			left: 0;
+			bottom: 0;
+			right: 0;
+
+			transition: opacity $trans-slower, z-index $trans-slower step-end;
+			opacity: 0;
+		}
+	}
+
+	&__inner {
+		position: relative;
+		overflow: hidden;
+	}
+
+	@include media($medium-and-below) {
+		&--pushed {
+			transform: translate3d($mobile-menu-width, 0, 0) rotateY(-20deg);
+		}
+
+		&--pushed &__content {
+			&:after {
+				opacity: 0.3;
+				z-index: 1;
+
+				transition: opacity $trans-slower, z-index $trans-slower step-start;
+			}
+
+			// Prevent scrolling and interaction
+			overflow-y: hidden;
+
+			* {
+				pointer-events: none;
+			}
+		}
+	}
+
+	@include media($small-only) {
+		&--pushed {
+			transform: translate3d(100%, 0, 0) rotateY(-45deg);
+		}
+	}
+}
+
+
+
+//
+// Standard column structures
+// ------------------------------------------------------------
+@mixin shift-reset() {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+@mixin columns-layout($direction) {
+	@include direction-context($direction) {
+		.columns__side {
+			@include shift-reset();
+
+			@include span-columns(3 of 12);
+		}
+
+		.columns__content {
+			@include shift-reset();
+
+			@include span-columns(12 of 12);
+			@include omega();
+		}
+
+		.columns__side + .columns__content {
+			@include span-columns(8 of 12);
+			@include omega();
+
+			// We float this to the opposite direction especially so that sidebar content    
+			// below this element in the DOM will all be able to flow to the top.
+			@if $direction == left-to-right {
+				float: right !important;
+			}
+			@else {
+				float: left !important;
+			}
+
+			// We shouldn't need margins as we're floated in the opposite direction
+			margin-left: 0 !important;
+			margin-right: 0 !important;
+		}
+
+		// Above tablet we want to force a min height so that the side columns 
+		// can't flow under it with small page content.
+		@include media($above-medium) {
+			.columns__content {
+				min-height: 300px;
+			}
+		}
+
+		// Expand a little to allow for more content
+		@include media($content-break) {
+			.columns__side + .columns__content {
+				@include span-columns(9 of 12);
+			}
+		}
+
+		// Small column layout (usually a small single-column page)
+		@include media($above-medium) {
+			&.columns--small .columns__content:first-child {
+				@include span-columns(8 of 12);
+				@include omega();
+
+				@include shift(2);
+			}
+		}
+
+		@include media($content-collapse-break) {
+			&.columns--small .columns__content:first-child {
+				@include shift-reset();
+
+				@include span-columns(12 of 12);
+				@include omega();
+			}
+		}
+
+		// Mobile/Tablet
+		@include media($medium-and-below) {
+			.columns__side.columns__side,
+			.columns__content.columns__content {
+				@include shift-reset();
+
+				@include span-columns(12 of 12);
+				@include omega();
+			}
+		}
+	}
+}
+
+.columns {
+	@include container($padding: 0);
+	overflow: auto;
+
+	@include columns-layout(left-to-right);
+
+	&.columns--reverse {
+		@include columns-layout(right-to-left);
+	}
+}
+
+
+//
+// Helper mixins
+// ------------------------------------------------------------
+@mixin in-small-container() {
+	.columns--small &,
+	.columns__side + .columns__content & {
+		@content;
+	}
+}

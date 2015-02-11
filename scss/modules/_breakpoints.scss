@@ -1,0 +1,27 @@
+/*----------------------------------------------------- 
+    Standard site breakpoints
+------------------------------------------------------*/
+
+$size-small: 480px;
+$size-medium: 768px;
+$size-large: $max-width-large;
+
+$size-content: $max-width;
+$size-content-collapse: 940px;
+
+$content-break: new-breakpoint(max-width $size-content); 
+$content-collapse-break: new-breakpoint(max-width $size-content-collapse);
+
+$mobile-and-above: new-breakpoint(min-width $size-small 6);
+$above-small: new-breakpoint(min-width ($size-small + 1px) 6);
+$medium-and-above: new-breakpoint(min-width $size-medium 6);
+$above-medium: new-breakpoint(min-width ($size-medium + 1px) 6);
+$large-only: new-breakpoint(min-width $size-large 6);
+$above-large: new-breakpoint(min-width ($size-large + 1px) 6);
+
+$small-small-only: new-breakpoint(max-width $size-small 6);
+$small-only: new-breakpoint(max-width $size-small 6);
+$medium-and-below: new-breakpoint(max-width $size-medium 6);
+$below-medium: new-breakpoint(max-width ($size-medium - 1px) 6);
+$large-and-below: new-breakpoint(max-width $size-large 6);
+$below-large: new-breakpoint(max-width ($size-large - 1px) 6);

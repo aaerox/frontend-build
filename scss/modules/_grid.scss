@@ -1,0 +1,28 @@
+/*----------------------------------------------------- 
+    Neat grid settings
+------------------------------------------------------*/
+
+// Column width
+$column: golden-ratio(1em, 3); 
+
+// Gutter between each two columns
+$gutter: golden-ratio(1em, 1); 
+
+// Total number of columns in the grid
+$grid-columns: 12; 
+
+// Max width of the small (single column) outer container
+$max-width-small: 760px;
+
+// Max-width of the outer container (typical content)
+$max-width: 1140px;
+
+// Max-width of the larger outer container
+$max-width-large: 1280px; 
+
+// Forces all elements to have a border-box layout
+$border-box-sizing: true; 
+
+// Default @media feature for the breakpoint() mixin
+$default-feature: min-width; 
+$default-layout-direction: LTR !default;

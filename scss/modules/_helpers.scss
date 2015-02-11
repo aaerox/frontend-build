@@ -1,0 +1,28 @@
+%list-reset {
+	list-style: none;
+
+	margin: 0;
+	padding: 0;
+}
+
+%no-last-margin {
+	// Eliminate the margin from our last item for nicer alignment
+	> *:last-child {
+		margin-bottom: 0;
+	}
+}
+
+// Helper to reset neat breakpoint
+@mixin omega-reset($nth) {
+  &:nth-child(#{$nth}) { 
+  	margin-right: flex-gutter(); 
+  }
+  &:nth-child(#{$nth}+1) { 
+  	clear: none 
+  }
+}
+
+// Helper to add random transition delays
+@mixin random-transition-delay($low-delay: 0.5s, $high-delay: 1s) {
+	transition-delay: ((($high-delay - $low-delay) / 1000) * random(1000)) + $low-delay;
+}

@@ -1,0 +1,37 @@
+//
+// Transitions
+// ------------------------------------------------------------/
+
+$trans-faster: 0.125s;
+$trans-fast: 0.2s;
+$trans-slow: 0.3s;
+$trans-slower: 0.4s;
+$trans-slowest: 0.75s;
+
+
+//
+// Layout
+// ------------------------------------------------------------/
+
+// Padding for collapsed elements which would otherwise
+// touch the screen edges when collapsed.
+$collapse-padding: 20px;
+
+// Padding between typical content elements
+$element-spacing: 30px;
+
+// Size of the mobile menu before it goes full-width
+$mobile-menu-width: 320px;
+
+// Max with for small generic centered text (hero banner, sections, etc)
+$centered-text-width: 450px;
+
+
+//
+// Z-index sorting
+// ------------------------------------------------------------/
+$zi-content-mask: -1;
+$zi-header: 1;
+$zi-language-dropdown: 11;
+$zi-contact-us: 50;
+$zi-mobile-nav: 100;
