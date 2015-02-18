@@ -1,0 +1,100 @@
+.author-listing {
+	@extend %standard-container;
+	@extend %standard-margin;
+
+	&__items {
+		@extend %list-reset;
+
+		overflow: hidden;
+	}
+
+	&__item {
+		// Default to dual column
+		@include span-columns(6 of 12);
+		@include omega(2n);
+	}
+
+	&__image {
+		display: block;
+		width: 100%;
+		
+		padding-bottom: 56.25%;
+
+		background-color: $cr-lightgray;
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-position: 50%;
+
+		transition: transform 1200ms;
+		transform: scale(1.05);
+
+		&--visible {
+			transform: scale(1);
+		}
+	}
+
+	&__image-wrapper {
+		overflow: hidden;
+
+		margin: 0;
+		margin-bottom: 1em;
+	}
+
+	&__preface {
+		margin-bottom: 1em;
+	}
+
+	&__date {
+		display: inline;
+		font-weight: bold;
+
+		color: $cr-midgray;
+	}
+
+	&__link {
+		text-decoration: none;
+		color: inherit;
+	}
+
+	&__title,
+	&__summary,
+	&__more {
+		color: $cr-midgray;
+		text-decoration: none;
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+
+	&__title {
+
+	}
+
+	&__summary {
+		margin: 0;
+	}
+
+	&__more {
+		display: block;
+		
+		margin-top: 0.5em;
+
+		text-decoration: none;
+		font-weight: bold;
+
+		color: $cr-orange;
+	}
+
+
+	//
+	// Mobile/tablet view
+	// ------------------------------------------------------------
+	@include media($small-only) {
+
+		&__item {
+			@include span-columns(12 of 12);
+			@include omega();
+		}
+	}
+}

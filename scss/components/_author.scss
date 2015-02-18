@@ -1,0 +1,29 @@
+.author {
+	display: inline;
+	color: $cr-orange;
+
+	font-weight: bold;
+
+	margin-right: 0.5em;
+
+	&__by {
+
+	}
+
+	&__authors {
+		display: inline;
+
+		@extend %list-reset;
+	}
+
+	&__author {
+		display: inline;
+	}
+
+	&__link {
+		text-decoration: none;
+		color: inherit;
+
+		font-weight: bold;
+	}
+}

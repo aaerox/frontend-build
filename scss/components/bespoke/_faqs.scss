@@ -1,0 +1,107 @@
+$faq-arrow-size: 24px;
+
+
+//
+// Initial questions section
+// ------------------------------------------------------------
+.faq-questions {
+	padding: 0 $collapse-padding;
+
+	@include margin($margin-large: $default-margin-large * 2, $margin-small: $default-margin-small * 2);
+
+	border-bottom: 1px solid $cr-border;
+
+	&__items {
+		@extend %list-reset;
+	}
+
+	&__item {
+		@include half-padding($directions: top bottom);
+
+		border-top: 1px solid $cr-border;
+	}
+
+	&__question {
+		display: block;
+
+		font-weight: bold;
+		color: $cr-orange;
+
+		margin-bottom: 1em;
+	}
+
+	&__title {
+		margin: 0;
+
+		color: $cr-midgray;
+	}
+
+	&__link {
+		font-size: inherit;
+
+		text-decoration: none;
+		color: inherit;
+	}
+}
+
+
+//
+// Answers section
+// ------------------------------------------------------------
+.faq-answers {
+	@include margin();
+
+	padding: 0 $collapse-padding;
+
+	&__answer {
+		@include half-padding($directions: top bottom);
+
+		border-top: 1px solid $cr-border;
+	}
+
+	&__title {
+		font-weight: bold;
+	}
+
+	&__question {
+		font-weight: bold;
+		color: $cr-orange;
+
+		margin-bottom: 1em;
+	}
+
+	&__wysiwyg {
+		margin-bottom: 1em;
+	}
+
+	&__to-top {
+		font-weight: bold;
+		text-decoration: none;
+
+		color: inherit; 
+
+		&:before {
+			display: block;
+			content: '';
+
+			float: left;
+
+			background: $cr-white;
+			border-bottom: 1px solid $cr-border;
+			border-right: 1px solid $cr-border;
+
+			width: $faq-arrow-size;
+			height: $faq-arrow-size;
+
+			margin-left: ($faq-arrow-size * 0.23);
+			margin-right: $faq-arrow-size;
+			margin-top: ($faq-arrow-size / 2);
+
+			transform: rotate(-135deg);
+
+			.ie9 & {
+				display: none;
+			}
+		}
+	}
+}

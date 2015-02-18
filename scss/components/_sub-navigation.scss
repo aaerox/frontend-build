@@ -1,0 +1,206 @@
+$sub-navigation-arrow-size: 30px;
+
+
+.sub-navigation {
+	border-bottom: 1px solid $cr-border;
+
+	@include margin();
+
+	// We want to be flush with hero banners
+	.hero-banner ~ & {
+		@include margin($margin-large: -$default-margin-large, $margin-small: -$default-margin-small, $directions: top);
+	}
+	
+	//
+	// Nav items
+	// ------------------------------------------------------------
+	&__inner {
+		@include container($padding: 0);
+	}
+
+	&__items {
+		@extend %list-reset;
+		
+		display: table;
+
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	&__link {
+		display: table-cell;
+
+		padding: 32px 0;
+
+		border-right: 1px solid $cr-border;
+		&:first-child {
+			border-left: 1px solid $cr-border;
+		}
+
+		text-align: center;
+
+		color: $cr-midgray;
+
+		font-size: 18px;
+		font-weight: bold;
+		
+		line-height: 18px;
+
+		text-decoration: none;
+
+		&--active {
+			color: $cr-orange;
+		}
+	}
+
+
+	//
+	// Solutions icon navigation
+	// ------------------------------------------------------------
+	&--solutions &__link {
+		// All hardcoded
+		&:before {
+			display: block;
+			content: '';
+
+			width: 42px;
+			height: 42px;
+
+			margin: 0 auto;
+			margin-bottom: 14px;
+		}
+
+		&:nth-child(1):before {
+			@extend %icon-solution-all;
+		}
+
+		&:nth-child(2):before {
+			@extend %icon-solution-atm;
+		}
+
+		&:nth-child(3):before {
+			@extend %icon-solution-internet;
+
+			width: 50px;
+		}
+
+		&:nth-child(4):before {
+			@extend %icon-solution-mobile;
+
+			width: 26px;
+		}
+
+		&:nth-child(5):before {
+			@extend %icon-solution-omni;
+
+			width: 44px;
+		}
+	}
+
+
+	//
+	// Active arrow
+	// ------------------------------------------------------------
+	@include media($above-medium) {
+
+		&__link--active {
+			position: relative;
+
+			&:after {
+				display: block;
+				content: '';
+
+				position: absolute;
+
+				top: 100%;
+				left: 50%;
+
+				background: $cr-white;
+				border-bottom: 1px solid $cr-border;
+				border-right: 1px solid $cr-border;
+
+				width: $sub-navigation-arrow-size;
+				height: $sub-navigation-arrow-size;
+
+				margin-top: -($sub-navigation-arrow-size / 2);
+				margin-left: -($sub-navigation-arrow-size / 2);
+
+				transform: rotate(45deg);
+
+				.ie9 & {
+					display: none;
+				}
+			}
+		}
+	}
+
+
+	//
+	// Mobile/tablet view
+	// ------------------------------------------------------------
+	// Removed on mobile in favour of the single-parent mobile navigation
+	@include media($medium-and-below) {
+		display: none;
+	}
+
+	/*@include media($medium-and-below) {
+
+		&__items {
+			display: block;
+		}
+
+		&__link {
+			display: block;
+			float: left;
+
+			width: 50%;
+
+			padding: 0.8em $collapse-padding;
+
+			text-align: left;
+			font-size: 1.1em;
+
+			border-top: 1px solid $cr-border;
+
+			&:nth-child(4):nth-last-child(2),
+			&:nth-child(5):nth-last-child(2) {
+				border-bottom: 1px solid $cr-border;
+			}
+
+			white-space: nowrap;
+			overflow: hidden;
+		}
+
+		&--solutions &__link {
+			
+			&:before {
+				display: inline-block;
+				vertical-align: middle;
+
+				width: 2em !important;
+				height: 2em !important;
+
+				margin: 0 $collapse-padding;
+
+				background-position: 50%;
+			}
+		}
+	}
+
+	@include media($small-only) {
+		&__link {
+			width: 100%;
+			margin: 0;
+
+			padding: 0.4em $collapse-padding;
+
+			border-bottom: none !important;
+		}
+	}
+
+	// Don't need mobile padding for solutions icon version
+	&--solutions &__link {
+		padding-left: 0;
+		padding-right: 0;
+	}*/
+}

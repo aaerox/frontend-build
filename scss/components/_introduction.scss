@@ -1,0 +1,8 @@
+.introduction {
+	@extend %standard-container;
+
+	color: $cr-gray;
+
+	font-weight: 100;
+	font-size: 1.5em;
+}

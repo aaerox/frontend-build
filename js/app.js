@@ -5031,6 +5031,38 @@ if (typeof define == 'function' && typeof define.amd == 'object' && define.amd) 
 
 }).call(this);
 
+
+/*--------------------------------------------------- 
+		Parallax-enabled hero banner
+---------------------------------------------------
+ */
+
+(function() {
+  define("component/hero-banner", ["imagesloaded/imagesloaded"], function(ImagesLoaded) {
+    var HeroBanner;
+    return HeroBanner = (function() {
+      HeroBanner.prototype.element = null;
+
+      function HeroBanner(element) {
+        this.element = element;
+        new ImagesLoaded(this.element[0], (function(_this) {
+          return function() {
+            return _this.loadBanner();
+          };
+        })(this));
+      }
+
+      HeroBanner.prototype.loadBanner = function() {
+        return this.element.addClass('hero-banner--loaded');
+      };
+
+      return HeroBanner;
+
+    })();
+  });
+
+}).call(this);
+
 /**
  * requestAnimationFrame version: "0.0.17" Copyright (c) 2011-2012, Cyril Agosta ( cyril.agosta.dev@gmail.com) All Rights Reserved.
  * Available via the MIT license.
@@ -6862,126 +6894,6 @@ define("nanoscroller/jquery.nanoscroller", function(){});
       OurServices.prototype.loadCarousel = function() {
         var slides;
         slides = $('.our-solutions__mobile', this.element);
-        return slides.owlCarousel({
-          items: 1,
-          loop: true,
-          autoHeight: true,
-          slideBy: 'page',
-          nav: false,
-          onResize: function() {
-            return this.trigger('changed', {
-              property: {
-                name: 'position',
-                value: this._current
-              }
-            });
-          }
-        });
-      };
-
-      return OurServices;
-
-    })();
-  });
-
-}).call(this);
-
-
-/*--------------------------------------------------- 
-		Search results page bar
----------------------------------------------------
- */
-
-(function() {
-  define("component/search-bar", [], function() {
-    var SearchBar;
-    return SearchBar = (function() {
-      SearchBar.prototype.element = null;
-
-      function SearchBar(element) {
-        this.element = element;
-        this.checkTextFill(this.element);
-        this.element.on('change', (function(_this) {
-          return function(e) {
-            return _this.checkTextFill(_this.element);
-          };
-        })(this));
-      }
-
-      SearchBar.prototype.checkTextFill = function(element) {
-        var input;
-        input = $('.search-bar__text', element);
-        if (input.val() !== '') {
-          return element.addClass('search-bar--filled');
-        } else {
-          return element.removeClass('search-bar--filled');
-        }
-      };
-
-      return SearchBar;
-
-    })();
-  });
-
-}).call(this);
-
-
-/*--------------------------------------------------- 
-		Expandable text field on the staff listing page
----------------------------------------------------
- */
-
-(function() {
-  define("component/staff-listing-item", [], function() {
-    var StaffListingItem;
-    return StaffListingItem = (function() {
-      StaffListingItem.prototype.element = null;
-
-      function StaffListingItem(element) {
-        var summaryHeight;
-        this.element = element;
-        summaryHeight = $('.staff-listing__summary', this.element).height();
-        if (summaryHeight > 200) {
-          this.element.addClass('staff-listing__item--collapsed');
-        }
-        $('.staff-listing__more', this.element).on('click', (function(_this) {
-          return function() {
-            return _this.element.removeClass('staff-listing__item--collapsed');
-          };
-        })(this));
-      }
-
-      return StaffListingItem;
-
-    })();
-  });
-
-}).call(this);
-
-
-/*--------------------------------------------------- 
-		Case study facts mobile-only carousel
----------------------------------------------------
- */
-
-(function() {
-  define("component/case-facts", ["imagesloaded/imagesloaded"], function(ImagesLoaded) {
-    var OurServices;
-    return OurServices = (function() {
-      OurServices.prototype.element = null;
-
-      function OurServices(element) {
-        this.element = element;
-        new ImagesLoaded(this.element[0], (function(_this) {
-          return function() {
-            return _this.loadCarousel();
-          };
-        })(this));
-      }
-
-      OurServices.prototype.loadCarousel = function() {
-        var slides;
-        slides = $('.case-facts__mobile', this.element);
         return slides.owlCarousel({
           items: 1,
           loop: true,
@@ -9072,6 +8984,245 @@ $.magnificPopup.registerModule(RETINA_NS, {
 
 /*>>fastclick*/
  _checkInstance(); }));
+
+/*--------------------------------------------------- 
+		Enables video content in the resources listing
+---------------------------------------------------
+ */
+
+(function() {
+  define("component/resources", ["magnific-popup/jquery.magnific-popup"], function(MagnificPopup) {
+    var Resources;
+    return Resources = (function() {
+      Resources.prototype.element = null;
+
+      Resources.prototype.href = null;
+
+      Resources.DISABLE_BREAKPOINT = 700;
+
+      function Resources(element) {
+        this.element = element;
+        $('[data-vimeo]', this.element).each((function(_this) {
+          return function(i, val) {
+            return _this.loadVimeo($(val));
+          };
+        })(this));
+        $('[data-youtube]', this.element).each((function(_this) {
+          return function(i, val) {
+            return _this.loadYoutube($(val));
+          };
+        })(this));
+      }
+
+      Resources.prototype.loadVimeo = function(element) {
+        var href, id;
+        id = element.data('vimeo');
+        href = "//player.vimeo.com/video/" + id;
+        element.magnificPopup({
+          type: 'iframe',
+          items: {
+            src: href
+          },
+          disableOn: Resources.DISABLE_BREAKPOINT,
+          mainClass: 'mfp-fade',
+          removalDelay: 160,
+          preloader: false,
+          fixedContentPos: false
+        });
+        element.addClass('resources__item--video-ready');
+        return element.on('click', (function(_this) {
+          return function(e) {
+            if ($(window).width() <= Resources.DISABLE_BREAKPOINT) {
+              return window.location.href = href;
+            }
+          };
+        })(this));
+      };
+
+      Resources.prototype.loadYoutube = function(element) {
+        var href, id;
+        id = element.data('youtube');
+        href = "//www.youtube.com/watch?v=" + id;
+        element.magnificPopup({
+          type: 'iframe',
+          items: {
+            src: href
+          },
+          disableOn: Resources.DISABLE_BREAKPOINT,
+          mainClass: 'mfp-fade',
+          removalDelay: 160,
+          preloader: false,
+          fixedContentPos: false
+        });
+        element.addClass('resources__item--video-ready');
+        return element.on('click', (function(_this) {
+          return function(e) {
+            if ($(window).width() <= Resources.DISABLE_BREAKPOINT) {
+              return window.location.href = href;
+            }
+          };
+        })(this));
+      };
+
+      return Resources;
+
+    })();
+  });
+
+}).call(this);
+
+
+/*--------------------------------------------------- 
+		Search results page bar
+---------------------------------------------------
+ */
+
+(function() {
+  define("component/search-bar", [], function() {
+    var SearchBar;
+    return SearchBar = (function() {
+      SearchBar.prototype.element = null;
+
+      function SearchBar(element) {
+        this.element = element;
+        this.checkTextFill(this.element);
+        this.element.on('change', (function(_this) {
+          return function(e) {
+            return _this.checkTextFill(_this.element);
+          };
+        })(this));
+      }
+
+      SearchBar.prototype.checkTextFill = function(element) {
+        var input;
+        input = $('.search-bar__text', element);
+        if (input.val() !== '') {
+          return element.addClass('search-bar--filled');
+        } else {
+          return element.removeClass('search-bar--filled');
+        }
+      };
+
+      return SearchBar;
+
+    })();
+  });
+
+}).call(this);
+
+
+/*--------------------------------------------------- 
+		Case study facts mobile-only carousel
+---------------------------------------------------
+ */
+
+(function() {
+  define("component/case-facts", ["imagesloaded/imagesloaded"], function(ImagesLoaded) {
+    var OurServices;
+    return OurServices = (function() {
+      OurServices.prototype.element = null;
+
+      function OurServices(element) {
+        this.element = element;
+        new ImagesLoaded(this.element[0], (function(_this) {
+          return function() {
+            return _this.loadCarousel();
+          };
+        })(this));
+      }
+
+      OurServices.prototype.loadCarousel = function() {
+        var slides;
+        slides = $('.case-facts__mobile', this.element);
+        return slides.owlCarousel({
+          items: 1,
+          loop: true,
+          autoHeight: true,
+          slideBy: 'page',
+          nav: false,
+          onResize: function() {
+            return this.trigger('changed', {
+              property: {
+                name: 'position',
+                value: this._current
+              }
+            });
+          }
+        });
+      };
+
+      return OurServices;
+
+    })();
+  });
+
+}).call(this);
+
+
+/*--------------------------------------------------- 
+		Generic tabbed container WYSIWYG control
+---------------------------------------------------
+ */
+
+(function() {
+  define("component/tab-listing", [], function() {
+    var TabListing;
+    return TabListing = (function() {
+      TabListing.prototype.element = null;
+
+      TabListing.TRANSITION_DELAY = 200;
+
+      function TabListing(element) {
+        this.element = element;
+        this.registerEvents();
+        $('.tab-listing__item', this.element).eq(0).addClass('tab-listing__item--active');
+        this.selectTab(0);
+        this.element.removeClass('tab-listing--uninitialized');
+      }
+
+      TabListing.prototype.selectTab = function(index) {
+        var currentContent;
+        $('.tab-listing__tab', this.element).removeClass('tab-listing__tab--active');
+        $('.tab-listing__tab', this.element).eq(index).addClass('tab-listing__tab--active');
+        currentContent = $('.tab-listing__item--active', this.element);
+        if (currentContent.length > 0) {
+          return currentContent.stop(true).fadeOut(TabListing.TRANSITION_DELAY, (function(_this) {
+            return function() {
+              currentContent.removeClass('tab-listing__item--active');
+              return _this.selectContent(index);
+            };
+          })(this));
+        } else {
+          return this.selectContent(index);
+        }
+      };
+
+      TabListing.prototype.selectContent = function(index) {
+        var content;
+        content = $('.tab-listing__item', this.element).eq(index);
+        content.addClass('tab-listing__item--active');
+        return content.stop(true).fadeIn(TabListing.TRANSITION_DELAY);
+      };
+
+      TabListing.prototype.registerEvents = function() {
+        return $('.tab-listing__tab', this.element).on('click', (function(_this) {
+          return function(e) {
+            var tab;
+            tab = $(e.delegateTarget);
+            if (!tab.hasClass('tab-listing__tab--active')) {
+              return _this.selectTab(tab.index());
+            }
+          };
+        })(this));
+      };
+
+      return TabListing;
+
+    })();
+  });
+
+}).call(this);
+
 
 /*--------------------------------------------------- 
 		Generic video CTA
@@ -12851,63 +13002,31 @@ define("owl.carousel/owl.carousel", function(){});
 
 
 /*--------------------------------------------------- 
-		Generic tabbed container WYSIWYG control
+		Expandable text field on the staff listing page
 ---------------------------------------------------
  */
 
 (function() {
-  define("component/tab-listing", [], function() {
-    var TabListing;
-    return TabListing = (function() {
-      TabListing.prototype.element = null;
+  define("component/staff-listing-item", [], function() {
+    var StaffListingItem;
+    return StaffListingItem = (function() {
+      StaffListingItem.prototype.element = null;
 
-      TabListing.TRANSITION_DELAY = 200;
-
-      function TabListing(element) {
+      function StaffListingItem(element) {
+        var summaryHeight;
         this.element = element;
-        this.registerEvents();
-        $('.tab-listing__item', this.element).eq(0).addClass('tab-listing__item--active');
-        this.selectTab(0);
-        this.element.removeClass('tab-listing--uninitialized');
-      }
-
-      TabListing.prototype.selectTab = function(index) {
-        var currentContent;
-        $('.tab-listing__tab', this.element).removeClass('tab-listing__tab--active');
-        $('.tab-listing__tab', this.element).eq(index).addClass('tab-listing__tab--active');
-        currentContent = $('.tab-listing__item--active', this.element);
-        if (currentContent.length > 0) {
-          return currentContent.stop(true).fadeOut(TabListing.TRANSITION_DELAY, (function(_this) {
-            return function() {
-              currentContent.removeClass('tab-listing__item--active');
-              return _this.selectContent(index);
-            };
-          })(this));
-        } else {
-          return this.selectContent(index);
+        summaryHeight = $('.staff-listing__summary', this.element).height();
+        if (summaryHeight > 200) {
+          this.element.addClass('staff-listing__item--collapsed');
         }
-      };
-
-      TabListing.prototype.selectContent = function(index) {
-        var content;
-        content = $('.tab-listing__item', this.element).eq(index);
-        content.addClass('tab-listing__item--active');
-        return content.stop(true).fadeIn(TabListing.TRANSITION_DELAY);
-      };
-
-      TabListing.prototype.registerEvents = function() {
-        return $('.tab-listing__tab', this.element).on('click', (function(_this) {
-          return function(e) {
-            var tab;
-            tab = $(e.delegateTarget);
-            if (!tab.hasClass('tab-listing__tab--active')) {
-              return _this.selectTab(tab.index());
-            }
+        $('.staff-listing__more', this.element).on('click', (function(_this) {
+          return function() {
+            return _this.element.removeClass('staff-listing__item--collapsed');
           };
         })(this));
-      };
+      }
 
-      return TabListing;
+      return StaffListingItem;
 
     })();
   });

@@ -1,0 +1,147 @@
+$our-services-height: 300px;
+$our-services-height-small: 200px;
+
+
+.our-services {
+	@include container($type: "large");
+
+	//
+	// Layout
+	// ------------------------------------------------------------
+	&__desktop {
+		display: table;
+		table-layout: fixed;
+
+		width: 100%;
+	}
+
+	&__mobile {
+		display: none !important;	// Owl carousel override
+	}
+
+	&__service {
+		position: relative;
+		display: table-cell;
+
+		overflow: hidden;
+
+		width: 33.3%;
+		height: $our-services-height;
+
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-position: 50%;
+
+		transition: width $trans-slower ease-in-out;
+	}
+
+	&__link {
+		position: absolute;
+
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+
+		text-decoration: none;
+	}
+
+	&__caption {
+		position: absolute;
+
+		top: 100%;
+
+		transition: transform $trans-slower ease-in-out, margin-right $trans-slower ease-in-out;
+		transform: translateY(-3.55em);
+	}
+
+	// Hover animation
+	&__service:hover {
+		width: 50%;
+	}
+
+	&__service:hover &__caption {
+		margin-right: 20%;
+		transform: translateY(-100%);
+	}
+
+
+	//
+	// Content
+	// ------------------------------------------------------------
+	&__title,
+	&__summary {
+		color: $cr-white;
+		background: rgba(0, 0, 0, 0.6);
+
+		margin: 0;
+		padding: 0.8em;
+	}
+
+	&__title {
+
+	}
+
+	&__summary {
+		padding-top: 0;
+	}
+
+	&__footer {
+		@include container();
+		@include padding();
+
+		text-align: center;
+	}
+
+	&__more {
+		@include button($cr-lightgray);
+	}
+
+
+	//
+	// Carousel navigation
+	// ------------------------------------------------------------
+	@include carousel-dots($breakpoint: $homepage-carousel-breakpoint);
+
+
+	//
+	// Mobile version
+	// ------------------------------------------------------------
+	@include media($medium-and-below) {
+		&__desktop {
+			display: none;
+		}
+
+		&__mobile {
+			display: block !important;
+		}
+
+		&__service {
+			display: block;
+
+			width: 100%;
+		}
+
+		&__service:hover {
+			width: 100%;
+		}
+
+		&__caption {
+			width: 100%;
+		}
+
+		.owl-dots {
+			display: block;
+		}
+	}
+
+	@include media($small-only) {
+		&__mobile {
+			display: none !important;
+		}
+
+		&__footer {
+			padding-top: 0;
+		}
+	}
+}

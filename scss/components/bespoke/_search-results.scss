@@ -1,0 +1,49 @@
+.search-results {
+	@include container($type: "small");
+	@extend %standard-margin;
+
+	padding: 0 $collapse-padding;
+
+
+	&__results-summary {
+		display: block;
+
+		@extend %half-margin;
+		@extend %half-padding;
+
+		border-bottom: 1px solid $cr-border;
+
+		font-weight: bold;
+	}
+
+	&__result {
+		@extend %half-margin;
+		@extend %half-padding;
+		@extend %no-last-margin;
+
+		border-bottom: 1px solid $cr-border;
+	}
+
+	&__link {
+		text-decoration: none;
+		font-size: inherit;
+		color: inherit;
+	}
+
+	&__title {
+
+	}
+
+	&__date {
+
+	}
+
+	&__summary {
+
+	}
+
+	&__image {
+		width: 100%;
+		height: auto;
+	}
+}

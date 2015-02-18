@@ -1,0 +1,268 @@
+$cta-minimum-dual-width: 500px;
+
+
+.ctas {
+	@extend %standard-container;
+
+
+	//
+	// Container sizes
+	// ------------------------------------------------------------
+	&--small {
+		@include container($type: "small");
+	}
+
+
+	//
+	// Layout
+	// ------------------------------------------------------------
+
+	@mixin cta-layout($span: $column of $columns) {
+		$column: nth($span, 1);
+		$columns: nth($span, 3);
+
+		$column-from-right: $columns + 1 - $column;
+
+		.cta:nth-child(#{$column}):nth-last-child(#{$column-from-right}) {
+			@content;
+		}
+	}
+
+
+	//
+	// Single CTA layout
+	// ------------------------------------------------------------
+	@include cta-layout(1 of 1) {
+		width: 100%;
+	}
+
+
+	//
+	// Dual CTA layout
+	// ------------------------------------------------------------
+	@include cta-layout(1 of 2) {
+		@include span-columns(6 of 12);
+	}
+
+	@include cta-layout(2 of 2) {
+		@include span-columns(6 of 12);
+		@include omega();
+	}
+
+	// Collapse to full width
+	@include media(max-width $cta-minimum-dual-width) {
+		%single-cta {
+			@include span-columns(12 of 12);
+			@include omega();
+		}
+		
+		@include cta-layout(1 of 2) {
+			@extend %single-cta;
+		}
+
+		@include cta-layout(2 of 2) {
+			@extend %single-cta;
+		}
+	}
+
+
+	//
+	// Triple CTA layout
+	// ------------------------------------------------------------
+	@include cta-layout(1 of 3) {
+		@include span-columns(4 of 12);
+	}
+
+	@include cta-layout(2 of 3) {
+		@include span-columns(4 of 12);
+	}
+
+	@include cta-layout(3 of 3) {
+		@include span-columns(4 of 12);
+		@include omega();
+	}
+
+	// Don't use 1 - 1 - 1 if we're inside a two column layout
+	.columns__side ~ .columns__content & {
+		@include cta-layout(1 of 3) {
+			@include span-columns(6 of 12);
+		}
+
+		@include cta-layout(2 of 3) {
+			@include span-columns(6 of 12);
+			@include omega();
+		}
+
+		@include cta-layout(3 of 3) {
+			@include span-columns(12 of 12);
+			@include omega();
+		}
+	}
+
+	// Collapse to 2 - 1
+	@include media($medium-and-below) {
+		@include cta-layout(1 of 3) {
+			@include span-columns(6 of 12);
+		}
+
+		@include cta-layout(2 of 3) {
+			@include span-columns(6 of 12);
+			@include omega();
+		}
+
+		@include cta-layout(3 of 3) {
+			@include span-columns(12 of 12);
+			@include omega();
+		}
+	}
+
+	// And finally to 1 - 1
+	@include media(max-width $cta-minimum-dual-width) {
+		%single-cta {
+			@include span-columns(12 of 12);
+			@include omega();
+		}
+
+		@include cta-layout(1 of 3) {
+			@extend %single-cta;
+		}
+
+		@include cta-layout(2 of 3) {
+			@extend %single-cta;
+		}
+
+		@include cta-layout(3 of 3) {
+			@extend %single-cta;
+		}
+	}
+
+
+	//
+	// Quad CTA layout
+	// ------------------------------------------------------------
+
+	// 2 - 2
+	@include cta-layout(1 of 4) {
+		@include span-columns(6 of 12);
+	}
+
+	@include cta-layout(2 of 4) {
+		@include span-columns(6 of 12);
+		@include omega();
+	}
+
+	@include cta-layout(3 of 4) {
+		@include span-columns(6 of 12);
+	}
+
+	@include cta-layout(4 of 4) {
+		@include span-columns(6 of 12);
+		@include omega();
+	}
+
+	// Collapse to 1 - 1
+	@include media(max-width $cta-minimum-dual-width) {
+		%single-cta {
+			@include span-columns(12 of 12);
+			@include omega();
+		}
+
+		@include cta-layout(1 of 4) {
+			@extend %single-cta;
+		}
+
+		@include cta-layout(2 of 4) {
+			@extend %single-cta;
+		}
+
+		@include cta-layout(3 of 4) {
+			@extend %single-cta;
+		}
+
+		@include cta-layout(4 of 4) {
+			@extend %single-cta;
+		}
+	}
+
+
+	//
+	// Quint CTA layout
+	// ------------------------------------------------------------
+
+	// 3 - 2
+	@include cta-layout(1 of 5) {
+		@include span-columns(4 of 12);
+	}
+
+	@include cta-layout(2 of 5) {
+		@include span-columns(4 of 12);
+	}
+
+	@include cta-layout(3 of 5) {
+		@include span-columns(4 of 12);
+		@include omega();
+	}
+
+	@include cta-layout(4 of 5) {
+		@include span-columns(6 of 12);
+	}
+
+	@include cta-layout(5 of 5) {
+		@include span-columns(6 of 12);
+		@include omega();
+	}
+
+	// Collapse to 2 - 2 - 1
+	@include media($medium-and-below) {
+		@include cta-layout(1 of 5) {
+			@include span-columns(6 of 12);
+		}
+
+		@include cta-layout(2 of 5) {
+			@include span-columns(6 of 12);
+			@include omega();
+		}
+
+		@include cta-layout(3 of 5) {
+			@include span-columns(6 of 12);
+		}
+
+		@include cta-layout(4 of 5) {
+			@include span-columns(6 of 12);
+			@include omega();
+		}
+
+		@include cta-layout(5 of 5) {
+			@include span-columns(12 of 12);
+			@include omega();
+		}
+	}
+
+	// And finally 1 - 1 
+	@include media(max-width $cta-minimum-dual-width) {
+		%single-cta {
+			@include span-columns(12 of 12);
+			@include omega();
+		}
+
+		@include cta-layout(1 of 5) {
+			@extend %single-cta;
+		}
+
+		@include cta-layout(2 of 5) {
+			@extend %single-cta;
+		}
+
+		@include cta-layout(3 of 5) {
+			@extend %single-cta;
+		}
+
+		@include cta-layout(4 of 5) {
+			@extend %single-cta;
+		}
+
+		@include cta-layout(5 of 5) {
+			@extend %single-cta;
+		}
+	}
+}

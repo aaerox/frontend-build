@@ -1,0 +1,57 @@
+.article {
+	@include padding($directions: bottom);
+	@extend %no-last-margin;
+	
+
+	&__preface {
+		margin-bottom: 1em;
+	}
+
+	&__date {
+		display: inline;
+		font-weight: bold;
+
+		color: $cr-midgray;
+	}
+
+	&__title {
+		color: $cr-gray;
+	}
+
+	&__image {
+		display: block;
+
+		width: 100%;
+		height: auto;
+	}
+
+	&__image-link {
+		display: block;
+
+		@include half-margin();
+	}
+
+	&__summary {
+		margin-bottom: 0;
+	}
+
+	&__link {
+		text-decoration: none;
+		color: inherit;
+	}
+
+	&__more {
+		display: block;
+		@include half-margin();
+
+		font-weight: bold;
+		text-decoration: none;
+
+		color: $cr-orange;
+	}
+
+	// Just used in detail pages
+	&__header {
+		@extend %standard-container;
+	}
+}

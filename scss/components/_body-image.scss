@@ -1,0 +1,14 @@
+.body-image-wrapper {
+	@include container();
+}
+
+.body-image {
+	@extend %standard-margin;
+	padding: 0 $collapse-padding;
+
+	display: block;
+
+	width: 100%;
+	height: auto;
+}
+

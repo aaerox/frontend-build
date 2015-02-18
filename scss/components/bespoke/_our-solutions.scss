@@ -1,0 +1,200 @@
+$solutions-break: 700px;
+
+
+.our-solutions {
+	@extend %standard-container;
+	@include padding();
+
+
+	//
+	// Layout
+	// ------------------------------------------------------------
+	&__mobile {
+		display: none !important;	// Owl carousel override
+	}
+
+	@include media(max-width $solutions-break) {
+		&__desktop {
+			display: none;
+		}
+
+		&__mobile {
+			display: block !important;
+		}
+	}
+
+	&__desktop &__solution {
+		position: relative;
+
+		@include span-columns(4 of 12);
+		@include omega(3n);
+
+		&--omni {
+			@include span-columns(8 of 12);
+			@include omega();
+			@include shift(2);
+		}
+
+		@include media(max-width $solutions-break) {
+			@include span-columns(12 of 12);
+			@include omega();
+			@include shift(0);
+
+			margin-bottom: ($element-spacing / 2);
+		}
+	}
+
+
+	//
+	// Content
+	// ------------------------------------------------------------
+	&__title,
+	&__summary {
+		text-align: center;
+	}
+
+	&__summary {
+		font-size: 0.9em;
+
+		padding: 0 1.5em;
+
+		margin: 0;
+		margin-bottom: 1em;
+	}
+
+	&__link {
+		color: inherit;
+		font-size: inherit;
+
+		text-decoration: none;
+	}
+
+	// Icon sizing
+	$omni-icon-size: 74px;
+	
+	&__icon {
+		display: block;
+		position: relative;
+
+		height: 64px;
+		margin: 0 auto;
+		margin-bottom: 14px;
+
+		@include media(max-width $solutions-break) {
+			margin-bottom: 0;
+		}
+
+		&--atm {
+			@extend %icon-solution-atm;
+
+			width: 48px;
+		}
+
+		&--internet {
+			@extend %icon-solution-internet;
+
+			width: 55px;
+		}
+
+		&--mobile {
+			@extend %icon-solution-mobile;
+
+			width: 32px;
+		}
+
+		&--omni { 
+			@extend %icon-solution-omni;
+
+			background-color: $cr-white;
+
+			width: $omni-icon-size;
+		}
+	}
+
+	&__desktop &__icon--omni {
+		height: $omni-icon-size;
+		
+		padding: 0 $collapse-padding;
+		margin: 0 auto;
+	}
+
+	&__icon--omni-wrap:before {
+		$width: $omni-icon-size + ($collapse-padding * 2);
+
+		display: block;
+		content: '';
+
+		width: $width;
+		height: $omni-icon-size;
+
+		background: $cr-white;
+
+		position: absolute;
+		z-index: -1;
+
+		left: 50%;
+
+		margin-left: -($width / 2);
+	}
+
+	// Lines from omni
+	@include media(min-width ($solutions-break + 1px)) {
+		&__omni-inner {
+			@include span-columns(2 of 4);
+			@include shift(1);
+			@include omega();
+		}
+
+		&__lines {
+			$grid-offset: flex-gutter(12);
+
+			position: absolute;
+			z-index: -1;
+
+			top: 0;
+			left: -$grid-offset;
+			right: -$grid-offset;
+
+			height: 32px;
+
+			border-left: 1px solid $cr-border;
+			border-right: 1px solid $cr-border;
+			border-bottom: 1px solid $cr-border;
+		}
+	}
+
+
+	//
+	// Mobile view
+	// ------------------------------------------------------------
+	@include media(max-width $solutions-break) {
+		padding-top: $default-padding-large;
+		padding-bottom: $default-padding-small;
+
+		&__solution {
+			padding-top: $collapse-padding;
+		}
+
+		&__summary {
+			font-size: 1em;
+
+			max-width: 420px;
+			margin: 0 auto;
+		}
+
+		&__icon--omni {
+			background-size: 86%;
+			background-position: 50%;
+		}
+	}
+
+
+	//
+	// Carousel navigation
+	// ------------------------------------------------------------
+	@include carousel-dots($color: $cr-lightgray);
+
+	.owl-dots {
+		top: -45px;
+	}
+}

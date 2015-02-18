@@ -1,0 +1,90 @@
+
+
+//
+// Layout
+// ------------------------------------------------------------
+.wysiwyg {
+	@extend %standard-container;
+	@extend %standard-margin;
+	@extend %column-container;
+	@extend %no-last-margin;
+
+	// Don't use a multi-column layout when we're within small containers
+	/*&:not(.wysiwyg--force-cols) {
+		@include in-small-container {
+			column-count: 1;
+		}
+	}*/
+
+	&--contained {
+		padding: 0;
+	}
+}
+
+.wysiwyg-split-header {
+	@extend %standard-container;
+
+	// Equalise margins
+	.wysiwyg + & {
+		@include margin($margin-large: -($default-margin-large / 2), $margin-small: -($default-margin-small / 2), $directions: top);
+	}
+}
+
+
+
+//
+// Custom styling
+// ------------------------------------------------------------
+.wysiwyg {
+
+	a {
+		text-decoration: none;
+		font-weight: bold;
+		
+		color: $cr-orange;
+		border-bottom: 1px solid $cr-orange;
+	}
+
+	// WYSIWYG introduction summary
+	&--summary {
+		column-count: 1;
+
+		color: $cr-gray;
+
+		font-weight: 100;
+		font-size: 1.5em;
+	}
+}
+
+
+//
+// Custom table layout
+// ------------------------------------------------------------
+.wysiwyg {
+	table {
+		width: 100%;
+		max-width: 100%;
+
+		margin-bottom: $element-spacing;
+
+		border-top: 1px solid $cr-border;
+
+		th {
+			padding: 0 $collapse-padding;
+			text-align: left;
+		}
+
+		tr {
+			td {
+				border-bottom: 1px solid $cr-border;
+				border-right: 1px solid $cr-border;
+				
+				padding: $collapse-padding;
+
+				&:last-child {
+					border-right: none;
+				}
+			}
+		}
+	}
+}

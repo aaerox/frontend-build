@@ -1,0 +1,128 @@
+.cta {
+	@extend %standard-margin;
+
+	// Default to full-width
+	@include span-columns(12 of 12);
+
+
+	&__image {
+		display: block;
+		width: 100%;
+		
+		padding-bottom: 56.25%;
+
+		background-color: $cr-lightgray;
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-position: 50%;
+
+		transition: transform 1200ms;
+		transform: scale(1.05);
+
+		&--visible {
+			transform: scale(1);
+		}
+	}
+
+	@for $i from 1 through 5 {
+		&:nth-child(#{$i}) &__image {
+			@include random-transition-delay($low-delay: 0ms, $high-delay: 250ms);
+		}
+	}
+
+	@include media($above-medium) {
+		&--video-ready &__image:hover,
+		a[href] &__image:hover {
+			transform: scale(1.1);
+			transition-duration: 400ms;
+			transition-delay: 0 !important;
+		}
+	}
+
+	&__image-wrapper {
+		position: relative;
+		overflow: hidden;
+
+		margin: 0;
+		margin-bottom: 1em;
+	}
+
+	&__linkwrap {
+		display: block;
+		
+		text-decoration: none;
+		
+		color: inherit;
+		font-size: inherit;
+	}
+
+	&__link {
+		text-decoration: none;
+		color: inherit;
+	}
+
+	&__title,
+	&__summary,
+	&__more {
+		color: $cr-midgray;
+		text-decoration: none;
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+
+	&__title {
+
+	}
+
+	&__summary {
+		margin: 0;
+	}
+
+	&__more {
+		display: block;
+		
+		margin-top: 0.5em;
+
+		text-decoration: none;
+		font-weight: bold;
+
+		color: $cr-orange;
+	}
+
+	// If we have video attached, make ourselves clickable!
+	&--video-ready {
+		cursor: pointer;
+	}
+
+	&__play-icon {
+		$icon-size: 25%;
+
+		@include video-play();
+
+		position: absolute;
+
+		width: $icon-size;
+		padding-bottom: $icon-size;
+
+		top: 50%;
+		left: 50% - ($icon-size / 2);
+
+		margin-top: -($icon-size / 2);
+	}
+
+
+	//
+	// Sidebar version
+	// ------------------------------------------------------------
+	&--sidebar {
+		// Pad for the sidebar menu, and then both sides when necessary
+		@include expandable-padding($medium: false, $small: false, $directions: left);
+		@include expandable-padding();
+	}
+
+	&--sidebar &__title {
+		color: $cr-lightgray;
+	}
+}

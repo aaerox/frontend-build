@@ -1,0 +1,111 @@
+.offices {
+	@extend %standard-container;
+	@extend %half-margin;
+
+
+	&__office {
+		@extend %half-margin;
+
+		@include span-columns(4 of 12);
+		@include omega(3n);
+	}
+
+	&__image {
+		display: block;
+		width: 100%;
+		
+		padding-bottom: 56.25%;
+
+		background-color: $cr-lightgray;
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-position: 50%;
+
+		transition: transform 1200ms;
+		transform: scale(1.05);
+
+		&--visible {
+			transform: scale(1);
+		}
+	}
+
+	@for $i from 1 through 5 {
+		&:nth-child(#{$i}) &__image {
+			@include random-transition-delay($low-delay: 0ms, $high-delay: 250ms);
+		}
+	}
+
+	&__image-wrapper {
+		overflow: hidden;
+
+		margin: 0;
+		margin-bottom: 1em;
+	}
+
+	&__title {
+
+	}
+
+	&__address {
+		margin-bottom: 0.5em;
+
+		font-size: 0.9em;
+
+		p {
+			margin: 0;
+		}
+	}
+
+	&__country {
+
+	}
+
+	&__postcode {
+
+	}
+
+	&__telephone,
+	&__fax {
+		margin: 0;
+
+		font-weight: bold;
+		font-size: 0.9em;
+	}
+
+	&__fax {
+		margin-bottom: 0.5em;
+	}
+
+	&__email {
+
+	}
+
+	&__link {
+		color: $cr-orange;
+
+		text-decoration: none;
+		font-weight: bold;
+		font-size: 0.9em;
+	}
+
+
+	//
+	// Mobile/tablet view
+	// ------------------------------------------------------------
+	@include media($medium-and-below) {
+
+		&__office {
+			@include omega-reset(2n);
+			@include span-columns(6 of 12);
+			@include omega(2n);
+		}
+	}
+
+	@include media($small-only) {
+
+		&__office {
+			@include span-columns(12 of 12);
+			@include omega();
+		}
+	}
+}

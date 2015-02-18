@@ -1,0 +1,97 @@
+$hero-banner-height: 512px;
+$hero-banner-height-large: 700px;
+
+
+.hero-banner {
+	position: relative;
+
+	@include margin();
+
+	height: $hero-banner-height;
+
+	background-color: $cr-lightgray;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: 50% 0;
+
+	transition: opacity $trans-fast;
+	opacity: 0;
+
+	padding-top: $header-height;
+
+	&--large {
+		height: $hero-banner-height-large;
+	}
+
+	&--loaded {
+		opacity: 1;
+	}
+
+	&__outer {
+		display: table;
+
+		width: 100%;
+		height: 100%;
+	}
+
+	&__inner {
+		display: table-cell;
+		vertical-align: middle;
+
+		transition: transform $trans-fast, opacity $trans-fast;
+		transition-delay: $trans-faster;
+
+		transform: scale(0.8);
+		opacity: 0;
+	}
+
+	&--loaded &__inner {
+		transform: scale(1);
+		opacity: 1;
+	}
+	
+	&__title,
+	&__text {
+		max-width: $centered-text-width;
+
+		margin-left: auto;
+		margin-right: auto;
+
+		color: $cr-white;
+
+		text-align: center;
+		font-weight: 300;
+	}
+
+	&__text {
+		margin-bottom: 0;
+	}
+
+	&__button {
+		@include margin($margin-large: $element-spacing, $margin-small: $element-spacing / 2, $directions: top);
+		
+		text-align: center;
+	}
+
+	&__link {
+		@include button();
+
+		text-align: center;
+	}
+
+	@include media($medium-and-below) {
+		height: auto;
+		padding-top: $element-spacing + $header-height;
+		padding-bottom: $element-spacing;
+
+		&__outer,
+		&__inner {
+			display: block;
+		}
+
+		&__title,
+		&__text {
+			padding: 0 $collapse-padding;
+		}
+	}
+}

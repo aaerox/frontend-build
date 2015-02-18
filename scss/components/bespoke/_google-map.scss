@@ -1,0 +1,22 @@
+.google-map {
+	margin: 0;
+	@include margin();
+
+	height: 550px;
+
+	&__map {
+		width: 100%;
+		height: 100%;
+	}
+
+	//
+	// Mobile/tablet view
+	// ------------------------------------------------------------
+	@include media($medium-and-below) {
+		height: 350px;
+	}
+
+	@include media($small-only) {
+		height: 200px;
+	}
+}

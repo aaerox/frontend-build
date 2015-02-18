@@ -1,0 +1,148 @@
+$tab-listing-icon-size: 44px;
+
+
+.tab-listing {
+	@extend %standard-container;
+	@extend %standard-margin;
+
+	width: 100%;
+
+	&__tabs {
+		@extend %list-reset;
+	}
+
+	&__tab {
+		display: inline-block;
+		cursor: pointer;
+
+		padding: 10px;
+		margin-right: 10px;
+
+		border: 1px solid $cr-border;
+		border-bottom: none;
+
+		border-top-left-radius: 4px;
+		border-top-right-radius: 4px;
+
+		font-size: 1.3em;
+		font-weight: 100;
+
+		transition: background $trans-fast, color $trans-fast;
+	}
+
+	@include media($small-only) {
+		&__tabs {
+			display: table;
+			table-layout: fixed;
+
+			width: 100%;
+		}
+
+		&__tab {
+			display: table-cell;
+
+			border-radius: 0;
+			border-left: none;
+
+			&:first-child {
+				border-left: 1px solid $cr-border;
+			}
+		}
+	}
+
+	&__tab--active,
+	&--uninitialized &__tab:first-child {
+		cursor: default;
+
+		background: $cr-lightgray;
+		color: white;
+	}
+
+	&__items {
+		@extend %list-reset;
+
+		@include padding($padding-large: 40px, $padding-small: 20px, $directions: top bottom left right);
+
+		border: 1px solid $cr-border;
+	}
+
+	&__item {
+		@extend %no-last-margin;
+		
+		display: none;
+
+		&--active {
+		}
+
+		// WYSIWYG list content
+		ul, ol {
+			overflow: auto;
+
+			@extend %list-reset;
+
+			@include margin($margin-large: $element-spacing, $margin-small: $element-spacing / 2, $directions: bottom);
+
+			&:last-child {
+				margin: 0;
+			}
+		}
+
+		li {
+			position: relative;
+
+			@include span-columns(4 of 12);
+			@include omega(3n);
+
+			font-size: 1.1em;
+			margin-top: 20px;
+
+			min-height: $tab-listing-icon-size;
+			padding-left: ($tab-listing-icon-size + 20px);
+
+			&:nth-child(1),
+			&:nth-child(2),
+			&:nth-child(3) {
+				margin-top: 0;
+			}
+
+			&:before {
+				display: block;
+				content: '';
+
+				position: absolute;
+
+				left: 0;
+
+				@extend %icon-tab-tick;
+
+				width: $tab-listing-icon-size;
+				height: $tab-listing-icon-size;
+			}
+
+			@include media($content-collapse-break) {
+				@include omega-reset(3n);
+
+				@include span-columns(6 of 12);
+				@include omega(2n);
+
+				&:nth-child(3) {
+					margin-top: 20px;
+				}
+			}
+
+			@include media(max-width 550px) {
+				@include omega-reset(2n);
+
+				@include span-columns(12 of 12);
+
+				&:nth-child(2) {
+					margin-top: 20px;
+				}
+			}
+		}
+	}
+
+	&--uninitialized &__item:first-child {
+		display: block;
+	}
+}

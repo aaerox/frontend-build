@@ -1,0 +1,30 @@
+.feature-images {
+	margin: 0;
+	@include margin();
+
+	padding: 0 $collapse-padding;
+
+	&__items {
+		@extend %list-reset;
+	}
+
+	&__item {
+
+	}
+
+	&__image {
+		width: 100%;
+		height: auto;
+	}
+
+
+	//
+	// Carousel controls
+	// ------------------------------------------------------------
+	@include carousel-dots();
+	@include carousel-arrows();
+
+	.owl-dots {
+		top: $element-spacing;
+	}
+}

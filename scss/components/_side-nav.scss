@@ -1,0 +1,50 @@
+.side-nav {
+	@include expandable-padding($medium: false, $small: false, $directions: left);
+
+	margin-bottom: $default-padding-large;
+	
+	&__items {
+		@extend %list-reset;
+	}
+
+	&__item {
+		border-bottom: 1px solid $cr-border;
+
+		margin-bottom: 1em;
+	}
+
+	&__link {
+		display: block;
+		
+		width: 100%;
+		height: 100%;
+
+		padding-bottom: 1em;
+
+		text-decoration: none;
+
+		color: $cr-midgray;
+
+		&.active {
+			color: $cr-orange;
+		}
+	}
+
+	&__sub-items {
+		@extend %list-reset;
+	}
+
+	&__sub-item {
+		border-top: 1px solid $cr-border;
+
+		padding-top: 1em;
+		margin-top: 1em;
+
+		padding-left: 2.2em;
+	}
+
+	@include media($medium-and-below) {
+		display: none;
+	}
+}
+

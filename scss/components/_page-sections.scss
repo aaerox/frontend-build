@@ -1,0 +1,78 @@
+
+.section {
+	&__title,
+	&__text {
+		text-align: center;
+	}
+
+	&__text {
+		@include expandable-padding();
+
+		max-width: $centered-text-width;
+
+		color: $cr-gray;
+	}
+
+	&__button {
+		text-align: center;
+	}
+
+	&__link {
+		@include button($cr-lightgray);
+	}
+
+	&__footer {
+		@include container();
+		@include padding();
+
+		text-align: center;
+	}
+}
+
+.section-intro {
+	@extend %standard-padding;
+
+	// We want to be flush with hero banners
+	.hero-banner + & {
+		@include margin($margin-large: -$default-margin-large, $margin-small: -$default-margin-small, $directions: top);
+	}
+
+	&__title,
+	&__text {
+		text-align: center;
+	}
+
+	&__text {
+		@include expandable-padding();
+
+		margin-bottom: 0;
+		
+		max-width: $centered-text-width;
+
+		color: $cr-gray;
+	}
+
+	&__button {
+		text-align: center;
+	}
+
+	&__link {
+		@include button($cr-lightgray);
+	}
+	
+	&--header {
+		padding-bottom: 0 !important;
+	}
+
+	// No need for padding after a subnav
+	.sub-navigation + & {
+		padding-top: 0;
+	}
+
+	@include media($medium-and-below) {
+		.mobile-sub-nav + & {
+			padding-top: 0;
+		}
+	}
+}
+

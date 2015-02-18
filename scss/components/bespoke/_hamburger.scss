@@ -1,0 +1,39 @@
+.hamburger {
+	@include square-button();
+
+	&__layer {
+		display: block;
+
+		width: 29px;
+		height: 3px;
+
+		margin: 0 auto;
+
+		background: $cr-white;
+
+		position: relative;
+
+		&:before,
+		&:after {
+			content: '';
+
+			display: block;
+			width: inherit;
+
+			height: 3px;
+
+			position: absolute;
+			left: 0;
+
+			background: inherit;
+		}
+
+		&:before {
+			bottom: 320%;
+		}
+
+		&:after {
+			top: 355%;
+		}
+	}
+}

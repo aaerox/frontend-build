@@ -1,0 +1,46 @@
+.navigation {
+
+	&__items {
+		@extend %list-reset;
+	}
+
+	&__item {
+		float: left;
+	}
+
+	&__link {
+		display: inline-block;
+		height: 100%;
+		
+		color: $cr-white;
+
+		text-decoration: none;
+		font-size: 1.2em;
+
+		margin-left: 1.5em;
+
+		transition: text-shadow $trans-fast;
+
+		&:hover {
+			text-shadow: 0px 0px 2px $cr-white;
+		}
+	}
+
+	// Collapse the menu size slightly
+	@include media($content-break) {
+		&__link {
+			font-size: 1em;
+		}
+	}
+
+	@include media(max-width 960px) {
+		&__link {
+			font-size: 0.9em;
+			margin-left: 1em;
+		}
+	}
+
+	@include media($medium-and-below) {
+		display: none;
+	}
+}

@@ -1,0 +1,67 @@
+.tags {
+	display: inline-block;
+
+	margin: auto auto 1.5em;
+
+	&__tags {
+		@extend %list-reset;
+
+		display: inline-block;
+	}
+
+	&__tag {
+		display: inline-block;
+
+		margin-right: 0.5em;
+		margin-bottom: 0.5em;
+
+		padding: 0.5em 1em;
+
+		line-height: 1em;
+		border-radius: 1em;
+
+		background: rgba(108, 111, 125, 0.7);
+	}
+
+	&__link {
+		text-decoration: none;
+	}
+
+	&__title {
+		color: $cr-white;
+
+		font-size: 0.9em;
+	}
+
+
+	//
+	// Text-only version
+	// ------------------------------------------------------------
+	&--text &__tag {
+		display: inline;
+		padding: 0;
+
+		background: none;
+		border-radius: 0;
+	}
+
+	&--text &__title {
+		color: $cr-midgray;
+		border-bottom: 1px solid $cr-midgray;
+	}
+
+	&--text &__link {
+		&:after {
+			display: inline;
+			content: ',';
+
+			color: $cr-midgray;
+
+			margin-left: -0.2em;
+		}
+	}
+
+	&--text &__tag:last-child &__link:after {
+		display: none;
+	}
+}

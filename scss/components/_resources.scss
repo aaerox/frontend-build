@@ -1,0 +1,147 @@
+.resources {
+	@extend %standard-container;
+	@extend %standard-margin;
+
+
+	&__categories {
+		@extend %list-reset;
+	}
+
+	&__category {
+		border-top: 1px solid $cr-border;
+	}
+
+	&__category-title {
+		@include half-padding($directions: top bottom);
+		margin: 0;
+
+		font-size: 1em;
+		font-weight: bold;
+
+		text-transform: uppercase;
+
+		color: $cr-midgray;
+	}
+
+	&__wysiwyg {
+		@include half-margin();
+	}
+
+	&__items {
+		@extend %list-reset;
+
+		overflow: hidden;
+	}
+
+	&__item {
+		@include span-columns(4 of 12);
+		@include omega(3n);
+
+		@include half-margin();
+
+		&--video-ready {
+			cursor: pointer;
+		}
+	}
+
+	&__video {
+		margin-bottom: 0.5em;
+
+		iframe {
+			width: 100%;
+			height: auto;
+		}
+	}
+
+	&__image {
+		display: block;
+
+		width: 100%;
+		padding-bottom: 110%;
+
+		background-color: $cr-lightgray;
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-position: 50%;
+
+		transition: transform 1200ms;
+		transform: scale(1.05);
+
+		&--visible {
+			transform: scale(1);
+		}
+	}
+
+	@for $i from 1 through 10 {
+		&:nth-child(#{$i}) &__image {
+			@include random-transition-delay($low-delay: 0ms, $high-delay: 250ms);
+		}
+	}
+
+	@include media($above-medium) {
+		&__image[href]:hover {
+			transform: scale(1.1);
+			transition-duration: 400ms;
+			transition-delay: 0 !important;
+		}
+	}
+
+	&__image-wrapper {
+		position: relative;
+		overflow: hidden;
+
+		margin: 0;
+		margin-bottom: 1em;
+	}
+
+	&__link {
+		text-decoration: none;
+		color: inherit;
+	}
+
+	&__title {
+		color: $cr-midgray;
+	}
+
+	&__download {
+		display: block;
+
+		text-decoration: none;
+		font-weight: bold;
+
+		color: $cr-orange;
+	}
+
+	&__play-icon {
+		$icon-size: 35%;
+
+		@include video-play();
+
+		position: absolute;
+
+		width: $icon-size;
+		padding-bottom: $icon-size;
+
+		top: 50% - ($icon-size / 2);
+		left: 50% - ($icon-size / 2);
+	}
+
+
+	//
+	// Mobile/tablet view
+	// ------------------------------------------------------------
+	@include media($medium-and-below) {
+		&__item {
+			@include omega-reset(3n);
+			@include span-columns(6 of 12);
+			@include omega(2n);
+		}
+	}
+
+	@include media($small-only) {
+		&__item {
+			@include span-columns(12 of 12);
+			@include omega();
+		}
+	}
+}

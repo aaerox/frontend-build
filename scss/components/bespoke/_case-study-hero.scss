@@ -1,0 +1,120 @@
+$casestudy-content-ratio: 0.5;
+$casestudy-height: 550px;
+$casestudy-content-width: 940px;
+$casestudy-breakpoint: $medium-and-below;
+
+
+.case-study-hero {
+	position: relative;
+	overflow: hidden;
+
+	color: $cr-white;
+	background: $cr-lightgray;
+
+	height: $casestudy-height;
+
+	background-size: cover;
+	background-position: 50%;
+	background-repeat: no-repeat;
+
+	&__caption {
+		@include container($size: $casestudy-content-width);
+
+		height: 100%;
+	}
+
+	&__image {
+		position: absolute;
+
+		top: 0;
+		left: 100% - (100% * $casestudy-content-ratio);
+
+		width: auto;
+		height: 100%;
+
+		transition: opacity $trans-slowest ease-out, transform $trans-slowest ease-out;
+
+		transform: translateX(10%);
+		opacity: 0;
+	}
+
+	&--visible &__image {
+		transform: translateX(0);
+		opacity: 1;
+	}
+
+	&__outer {
+		display: table;
+
+		width: (100% * $casestudy-content-ratio);
+		height: 100%;
+	}
+
+	&__inner {
+		display: table-cell;
+		vertical-align: middle;
+
+		padding: $collapse-padding;
+	}
+
+	&__link {
+		color: inherit;
+		text-decoration: none;
+	}
+
+	&__subtitle,
+	&__title,
+	&__summary {
+		color: inherit;
+	}
+
+	&__subtitle {
+		text-transform: uppercase;
+	}
+
+	&__title {
+
+	}
+
+	&__more {
+		@include button($cr-white);
+	}
+
+
+	//
+	// Mobile/tablet view
+	// ------------------------------------------------------------
+	@include media($casestudy-breakpoint) {
+		height: auto;
+
+		&__image {
+			display: none;
+		}
+
+		&__outer {
+			@include padding($directions: top left right bottom);
+
+			display: block;
+			width: 100%;
+		}
+
+		&__inner {
+			display: block;
+			text-align: center;
+
+			padding: 0;
+		}
+
+		&__subtitle,
+		&__title,
+		&__summary,
+		&__link,
+		&__more {
+			text-align: center;
+		}
+
+		&__summary {
+			max-width: 450px;
+		}
+	}
+}

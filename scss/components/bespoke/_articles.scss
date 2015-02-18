@@ -1,0 +1,11 @@
+.articles {
+	@extend %standard-container;
+	
+	@include half-margin();
+
+	&__article {
+		@include padding($padding-large: $default-padding-large / 2, $padding-small: $default-padding-small / 2, $directions: top);
+
+		border-top: 1px solid $cr-border;
+	}
+}

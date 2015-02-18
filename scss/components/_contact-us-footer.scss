@@ -1,0 +1,125 @@
+$contact-us-footer-icon-size: 40px;
+
+
+.contact-us-footer {
+	border-top: 1px solid $cr-border;
+
+	&__inner {
+		@include container($type: "large");
+	}
+
+	&__items {
+		@extend %list-reset;
+		
+		display: table;
+
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	&__item {
+		display: table-cell;
+
+		padding: $contact-us-footer-icon-size;
+
+		border-right: 1px solid $cr-border;
+		&:first-child {
+			border-left: 1px solid $cr-border;
+		}
+
+		&:before {
+			display: block;
+			content: '';
+
+			width: $contact-us-footer-icon-size;
+			height: $contact-us-footer-icon-size;
+
+			margin-bottom: 1em;
+		}
+
+		&--phone:before {
+			@extend %icon-contact-phone;
+		}
+
+		&--chat:before {
+			@extend %icon-contact-chat;
+		}
+
+		&--mail:before {
+			@extend %icon-contact-mail;
+
+			height: $contact-us-footer-icon-size * 0.75;
+		}
+	}
+
+	&__text,
+	&__value {
+		margin: 0;
+
+		color: $cr-midgray;
+		text-decoration: none;
+	}
+
+	&__text {
+		font-size: 1.3em;
+	}
+
+	&__value {
+		font-size: 1.7em;
+	}
+
+	@include media($medium-and-below) {
+		&__item {
+			padding: $collapse-padding;
+		}
+
+		&__text {
+			font-size: 1em;
+		}
+
+		&__value {
+			font-size: 1.2em;
+		}
+	}
+
+	@include media($small-only) {
+		border: 0;
+
+		&__items {
+			display: block;
+		}
+
+		&__item {
+			display: block;
+			position: relative;
+
+			padding: $collapse-padding;
+			padding-left: $collapse-padding + $contact-us-footer-icon-size + $collapse-padding;
+
+			border-top: 1px solid $cr-border;
+
+			&:before {
+				display: inline-block;
+				position: absolute;
+
+				top: 50%;
+				transform: translateY(-50%);
+
+				.ie9 & {
+					top: $collapse-padding;
+					transform: none;
+				}
+
+				left: $collapse-padding;
+			}
+		}
+
+		&__text {
+			font-size: 0.9em;
+		}
+
+		&__value {
+			font-size: 1.1em;
+		}
+	}
+}

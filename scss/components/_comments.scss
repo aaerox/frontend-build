@@ -1,0 +1,113 @@
+$comments-sub-icon-size: 24px;
+
+
+//
+// Comments listing
+// ------------------------------------------------------------
+.comments {
+	@extend %standard-margin;
+
+	padding: 0 $collapse-padding;
+
+	&__inner {
+		@include container($type: "small");
+		@include half-padding($directions: top);
+
+		border-top: 1px solid $cr-border;
+	}
+
+	&__title {
+		@include margin();
+	}
+
+	&__items {
+		@extend %list-reset;
+	}
+
+	&__item {
+		@include half-margin();
+		@include half-padding();
+
+		border-bottom: 1px solid $cr-border;
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+
+	&__sub-items {
+		@extend %list-reset;
+	}
+
+	&__sub-item {
+		position: relative;
+
+		@include half-margin($directions: top);
+		@include half-padding($directions: top);
+
+		border-top: 1px solid $cr-border;
+
+		padding-left: 40px;
+
+		&:before {
+			display: block;
+			content: '';
+
+			position: absolute;
+			left: 0;
+
+			width: $comments-sub-icon-size;
+			height: $comments-sub-icon-size;
+
+			@extend %icon-comment-sub;
+		}
+	}
+
+	&__author,
+	&__date {
+		font-weight: bold;
+
+		color: $cr-midgray;
+	}
+
+	&__message {
+		margin-bottom: 0.4em;
+
+		font-size: 1.3em;
+
+		color: $cr-gray;
+	}
+
+	&__buttons {
+
+	}
+	
+	&__button {
+		text-decoration: none;
+		font-weight: bold;
+
+		color: $cr-orange;
+
+		margin-right: 1.5em;
+	}
+}
+
+
+//
+// Leave a comment form
+// ------------------------------------------------------------
+.comments-form {
+	@extend %standard-container;
+	@extend %standard-margin;
+
+	// Form has it's own padding
+	padding: 0;
+
+	&__inner {
+		@include container($type: "small");
+	}
+
+	&__title {
+		padding: 0 $collapse-padding;
+	}
+}
